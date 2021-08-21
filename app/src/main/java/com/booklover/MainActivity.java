@@ -1,11 +1,9 @@
 package com.booklover;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import android.os.Bundle;
-import android.view.MenuItem;
 
 import com.booklover.ui.FavoritesFragment;
 import com.booklover.ui.HomeFragment;
@@ -26,24 +24,21 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener navigationItemSelectedListener =
-            new BottomNavigationView.OnNavigationItemSelectedListener() {
-                @Override
-                public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                    Fragment selFragment = null;
+            item -> {
+                Fragment selFragment = null;
 
-                    switch (item.getItemId()){
-                        case R.id.nav_home:
-                            selFragment = new HomeFragment();
-                            break;
-                        case R.id.nav_favorites:
-                            selFragment = new FavoritesFragment();
-                            break;
-                        case R.id.nav_profile:
-                            selFragment = new ProfileFragment();
-                            break;
-                    }
-                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,selFragment).commit();
-                    return true;
+                switch (item.getItemId()){
+                    case R.id.nav_home:
+                        selFragment = new HomeFragment();
+                        break;
+                    case R.id.nav_favorites:
+                        selFragment = new FavoritesFragment();
+                        break;
+                    case R.id.nav_profile:
+                        selFragment = new ProfileFragment();
+                        break;
                 }
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,selFragment).commit();
+                return true;
             };
 }

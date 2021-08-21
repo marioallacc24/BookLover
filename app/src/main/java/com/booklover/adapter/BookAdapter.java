@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,7 +24,6 @@ import java.util.List;
 
 public class BookAdapter extends RecyclerView.Adapter<BookAdapter.MyViewHolder> {
 
-    private static final String TAG = "Adapter";
 
     private Context mContext;
     private List<Book> mData;
@@ -86,36 +84,30 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.MyViewHolder> 
             download = itemView.findViewById(R.id.book_download);
             like = itemView.findViewById(R.id.book_like);
 
-            download.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
+            download.setOnClickListener(view -> {
 
-                    String url = downloadLink;
-                    Intent i = new Intent(Intent.ACTION_VIEW);
-                    i.setData(Uri.parse(url));
-                    view.getContext().startActivity(i);
-                }
+                String url = downloadLink;
+                Intent i = new Intent(Intent.ACTION_VIEW);
+                i.setData(Uri.parse(url));
+                view.getContext().startActivity(i);
             });
 
-            like.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
+            like.setOnClickListener(view -> {
 
-                    Drawable.ConstantState imgID = like.getDrawable().getConstantState();
-                    Drawable.ConstantState imgID2 = view.getContext().getDrawable(R.drawable.ic_favorite_red).getConstantState();
-                    if(imgID!=imgID2)
-                    {
-                        like.setImageResource(R.drawable.ic_favorite_red);
-                        Toast.makeText(view.getContext(),"Svidja vam se "+name.getText(),Toast.LENGTH_SHORT).show();
-                    }
-                    else {
-                        like.setImageResource(R.drawable.ic_favorite);
-                        Toast.makeText(view.getContext(),"Ne svidja vam se "+name.getText(),Toast.LENGTH_SHORT).show();
-                    }// Other Block of Code
-
-
-
+                Drawable.ConstantState imgID = like.getDrawable().getConstantState();
+                Drawable.ConstantState imgID2 = view.getContext().getDrawable(R.drawable.ic_favorite_red).getConstantState();
+                if(imgID!=imgID2)
+                {
+                    like.setImageResource(R.drawable.ic_favorite_red);
+                    Toast.makeText(view.getContext(),"Svidja vam se "+name.getText(),Toast.LENGTH_SHORT).show();
                 }
+                else {
+                    like.setImageResource(R.drawable.ic_favorite);
+                    Toast.makeText(view.getContext(),"Ne svidja vam se "+name.getText(),Toast.LENGTH_SHORT).show();
+                }// Other Block of Code
+
+
+
             });
         }
     }

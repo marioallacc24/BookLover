@@ -3,13 +3,11 @@ package com.booklover.ui;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 
 import android.text.TextUtils;
 import android.util.Patterns;
@@ -27,7 +25,6 @@ import com.booklover.model.User;
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -40,7 +37,6 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.UUID;
 
@@ -63,15 +59,12 @@ public class ProfileFragment extends Fragment {
 
     private ProgressDialog mDialog;
 
-    private FirebaseAuth mAuth;
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
-        View root = inflater.inflate(R.layout.fragment_profile, container, false);
-
-        return root;
+        return inflater.inflate(R.layout.fragment_profile, container, false);
     }
 
     @Override
@@ -92,17 +85,12 @@ public class ProfileFragment extends Fragment {
 
         mDialog = new ProgressDialog(getContext());
 
-        mAuth = FirebaseAuth.getInstance();
 
-        mProfileImage.setOnClickListener(v ->{
-            choosePicture();
-        });
+        mProfileImage.setOnClickListener(v -> choosePicture());
 
         showUserData();
 
-        mUpdate.setOnClickListener(v -> {
-            updateUserData();
-        });
+        mUpdate.setOnClickListener(v -> updateUserData());
 
 
     }
@@ -132,29 +120,17 @@ public class ProfileFragment extends Fragment {
         StorageReference riversRef = storageReference.child("images/" + randomKey);
 
         riversRef.putFile(imageUri)
-                .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                    @Override
-                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                        mDialog.dismiss();
-                        Toast.makeText(getContext(),"Uspesno!",Toast.LENGTH_SHORT).show();
+                .addOnSuccessListener(taskSnapshot -> {
+                    mDialog.dismiss();
+                    Toast.makeText(getContext(),"Uspesno!",Toast.LENGTH_SHORT).show();
 
-                        riversRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                            @Override
-                            public void onSuccess(Uri uri) {
-                                updateUserPicture(uri.toString());
-                            }
-                        });
+                    riversRef.getDownloadUrl().addOnSuccessListener(uri -> updateUserPicture(uri.toString()));
 
-
-                    }
 
                 })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception exception) {
-                        mDialog.dismiss();
-                        Toast.makeText(getContext(),"Greska prilikom uploada!",Toast.LENGTH_SHORT).show();
-                    }
+                .addOnFailureListener(exception -> {
+                    mDialog.dismiss();
+                    Toast.makeText(getContext(),"Greska prilikom uploada!",Toast.LENGTH_SHORT).show();
                 });
     }
 
