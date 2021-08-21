@@ -1,29 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    android:background="@color/white"
     android:layout_margin="10dp"
-    android:layout_height="match_parent">
+    android:orientation="horizontal"
+    android:layout_height="300dp">
 
     <ImageView
+        android:id="@+id/book_image"
         android:layout_width="165dp"
         android:layout_height="300dp"
+        android:scaleType="fitXY"
+        android:layout_marginRight="5dp"
+        android:layout_marginLeft="5dp"
         android:src="@drawable/bg"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="300dp"
         android:orientation="vertical">
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="270dp"
+            android:orientation="vertical">
+
         <TextView
+            android:id="@+id/book_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="25sp"
             android:text="Naslov knjige" />
         <TextView
+            android:id="@+id/book_writer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="17sp"
+            android:text="Pisac" />
+        <TextView
+            android:id="@+id/book_category"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="17sp"
             android:text="Kategorija" />
         <TextView
+            android:id="@+id/book_edition"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="15sp"
@@ -32,7 +52,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="15sp"
-            android:paddingTop="20dp"
+            android:paddingTop="10dp"
             android:text="Opis" />
         <View
             android:layout_width="match_parent"
@@ -40,24 +60,29 @@
             android:paddingBottom="5dp"
             android:background="@color/colorInactive"/>
         <TextView
+            android:id="@+id/book_description"
             android:layout_width="match_parent"
             android:layout_height="140dp"
             android:textSize="15dp"
             android:text="@string/book_desc" />
 
+    </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="30dp"
             android:gravity="right"
             android:orientation="horizontal">
 
             <ImageView
+                android:id="@+id/book_download"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_marginRight="10dp"
                 android:src="@drawable/ic_download"
                 android:layout_gravity="bottom" />
             <ImageView
+                android:id="@+id/book_like"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:src="@drawable/ic_favorite"
